@@ -21,12 +21,14 @@ def run_nhls_test(params, n):
     command += f" --images {images}"
     command += f" --threads {threads}"
     command += f" --chunk-size {chunk_size}"
-
+    command += f" --ratio {ratio}"
+    command += f" --cutoff {cutoff}"
 
     if params["wisdom_file"]:
         command += f" --wisdom-file wisdom_file"
         wisdom_command = command
         wisdom_command += " --plan-type measure"
+        wisdom_command += " --gen-only"
         command += " --plan-type wisdom-only"
 
         # Run command
@@ -39,8 +41,9 @@ def run_nhls_test(params, n):
             print("    - Wisdom Call Successful")
   
     result = []
-    print("Test Command: {command}")
+    print(f"Test Command: {command}")
     for i in range(0, n):
+        print(f" - test {i}")
         start = time.time()
         exit_status = os.system(command);
         end = time.time()

@@ -1,2 +1,4 @@
 __pycache__
 output
+*.swp
+wisdom_file
