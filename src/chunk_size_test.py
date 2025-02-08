@@ -6,13 +6,13 @@ param_sweep_config = {
     "nhls_params": {
         "cli_path": ["/home/rbentley/heat_2d_execs/heat_2d_ap_fft_avx2_singleunit"],
         "output_dir": ["output"],
-        "domain_size": [4000],
-        "steps": [4000],
+        "domain_size": [8000],
+        "steps": [8000],
         "images": [2],
         "threads": [32],
         "chunk_size": [4000],
-        "ratio": [0.7, 0.9, 0.95],
-        "cutoff": [20, 40, 60, 100, 400],
+        "ratio": [0.7, 0.9, 0.95, 0.99],
+        "cutoff": [40, 60, 100, 400, 600],
         "wisdom_file": [True],
     }
 }

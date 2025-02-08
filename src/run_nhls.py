@@ -1,7 +1,7 @@
 import time
 import os
 
-def run_nhls_test(params, n):
+def run_nhls_test(params, n, wisdom_file):
     cli_path = params["cli_path"]
     output_dir = params["output_dir"]
     domain_size = params["domain_size"]
@@ -25,7 +25,7 @@ def run_nhls_test(params, n):
     command += f" --cutoff {cutoff}"
 
     if params["wisdom_file"]:
-        command += f" --wisdom-file wisdom_file"
+        command += f" --wisdom-file {wisdom_file}"
         wisdom_command = command
         wisdom_command += " --plan-type measure"
         wisdom_command += " --gen-only"
