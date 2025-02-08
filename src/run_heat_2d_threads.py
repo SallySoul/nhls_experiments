@@ -1,43 +1,44 @@
 import param_sweep
 import run_nhls
 import lab
+import json
 
 name = "heat_2d_threads"
 n = 4
-cli_path = "path_to_cli"
-data_dir = "path_to_data"
-output_dir = "path_to_output"
-
+cli_path = "/home/rbentley/nhls_binaries/heat_2d_ap_fft"
 param_sweep_config = {
     "nhls_params": {
-        "domain_size": [4000],
-        "steps": [4000],
+        "domain_size": [8000],
+        "steps": [8000],
         "images": [2],
-        "threads": [60],
+        "threads": [32, 48, 55, 60, 62],
         "chunk_size": [10000],
         "ratio": [0.5],
         "cutoff": [100],
         "wisdom_file": [True],
     }
 }
+data_dir = "/home/rbentley/nhls_experiments/data"
 
 def main():
-    data_dir = lab.make_work_dir(data_dir, name)
-    results_path = f"{data_dir}/data.json"
-    wisdom_path = f"{data_dir}/wisdom"
-    output_dir = f"{data_dir}/output_dir"
-    param_sweep_config["output_dir"] = [output_dir]
-    param_sweep_config["cli_path"] = [cli_path]
+    print("SCRIPT: Starting")
+    work_dir = lab.make_work_dir(name, data_dir)
+    results_path = f"{work_dir}/data.json"
+    wisdom_path = f"{work_dir}/wisdom"
+    output_dir = f"{work_dir}/output_dir"
+    param_sweep_config["nhls_params"]["output_dir"] = [output_dir]
+    param_sweep_config["nhls_params"]["cli_path"] = [cli_path]
 
+    print("SCRIPT: Getting Build Report")
     build_report = run_nhls.build_report(cli_path)
 
     param_instances = param_sweep.generate(param_sweep_config)
-    print(f"*** SWEEP INSTANCES N: {len(sweep_params)}")
+    print(f"*** SWEEP INSTANCES N: {len(param_instances)}")
 
     runtime_data = []
-    for params in sweep_params:
+    for params in param_instances:
         param_results = run_nhls.run_nhls_test(params["nhls_params"], n, wisdom_path)
-        result.append(param_results);
+        runtime_data.append(param_results);
     
     print("*** Done with tests, writing results")
     result = {
@@ -46,6 +47,6 @@ def main():
             "runtime_data": runtime_data,
     }
     with open(results_path, 'w') as f:
-        json.dump(result, f)   
+        json.dump(result, f, indent=4)   
 
 main()

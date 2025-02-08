@@ -4,8 +4,8 @@ import subprocess
 import json
 
 def build_report(cli_path):
-    result = subprocess.run([cli_path, "--build-info"], capture_output = True)
-    build_report = json.loads(s.stdout)
+    result = subprocess.run([cli_path, "--build-info"], capture_output=True)
+    build_report = json.loads(result.stdout)
     return build_report
 
 def run_nhls_test(params, n, wisdom_file):

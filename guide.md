@@ -6,8 +6,8 @@ srun \
   --account=sun127 \
   --nodes=1 \
   --ntasks=1 \
-  --mem=8G \
-  -t 01:00:00 \
+  --mem=2G \
+  -t 00:15:00 \
   --wait=0 \
   --export=ALL \
 /bin/bash
@@ -104,5 +104,10 @@ icc -std=gnu++98 -O3 -qopenmp -xhost -ansi-alias -ipo -qopt-prefetch=5 -AVX512 m
 
 time ./mkl_2d_heat_fftw_NP-n-polylog-gen 2500 2500 5000 64 32768 32 0
 
+```
+
+```
+module load gcc/10.2.0/npcyll4
+module load python/3.8.12/7zdjza7
 ```
 
