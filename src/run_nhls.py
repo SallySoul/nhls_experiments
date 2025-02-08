@@ -1,5 +1,12 @@
 import time
 import os
+import subprocess
+import json
+
+def build_report(cli_path):
+    result = subprocess.run([cli_path, "--build-info"], capture_output = True)
+    build_report = json.loads(s.stdout)
+    return build_report
 
 def run_nhls_test(params, n, wisdom_file):
     cli_path = params["cli_path"]
@@ -41,7 +48,7 @@ def run_nhls_test(params, n, wisdom_file):
             print("    - Wisdom Call Successful")
   
     result = []
-    print(f"Test Command: {command}")
+    print(f"*** Test Command: {command}")
     for i in range(0, n):
         print(f" - test {i}")
         start = time.time()
@@ -55,7 +62,3 @@ def run_nhls_test(params, n, wisdom_file):
         result.append(end - start)
 
     return result
-
-
-
-
