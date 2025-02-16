@@ -8,13 +8,13 @@ n = 4
 cli_path = "/home/rbentley/nhls_binaries/heat_2d_ap_fft"
 param_sweep_config = {
     "nhls_params": {
-        "domain_size": [8000],
-        "steps": [8000],
+        "domain_size": [4000],
+        "steps": [4000],
         "images": [2],
-        "threads": [32, 48, 55, 60, 62],
+        "threads": [1, 32, 60],
         "chunk_size": [10000],
         "ratio": [0.5],
-        "cutoff": [100],
+        "cutoff": [10],
         "wisdom_file": [True],
     }
 }
